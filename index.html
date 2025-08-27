@@ -6,12 +6,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="login">
-  <div class="login-card">
+
+  <div class="login-card" id="loginCard">
     <h1>Welcome 💖</h1>
     <p>Enter the password to see my video diaries:</p>
-    
     <input type="password" id="passwordInput" placeholder="Password">
     <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <div class="login-card" id="userSelectCard" style="display:none;">
+    <h2>Who are you?</h2>
+    <button onclick="selectUser('Litzy')">Litzy</button>
+    <button onclick="selectUser('Isaac')">Isaac</button>
   </div>
 
   <script>
@@ -20,10 +26,16 @@
       const realPassword = "pinkypromise"; // change this 🔑
       if (input === realPassword) {
         sessionStorage.setItem("authenticated", "true");
-        window.location.href = "gallery.html"; 
+        document.getElementById("loginCard").style.display = "none";
+        document.getElementById("userSelectCard").style.display = "block";
       } else {
         alert("Nope, try again 💔");
       }
+    }
+
+    function selectUser(user) {
+      sessionStorage.setItem("user", user);
+      window.location.href = "gallery.html";
     }
   </script>
 </body>
