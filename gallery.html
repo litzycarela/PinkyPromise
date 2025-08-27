@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Secret Video Gallery 📹</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+</head>
+<body class="gallery-page">
+  <h1>Our Secret Video Gallery 📹</h1>
+    <!-- NEW button section -->
+<div class="button-section">
+  <button onclick="sendNotification('Thinking about you ❤️', 'Isaac visited the website and is thinking about you!')">Thinking about you </button>
+  <button onclick="sendNotification('Peak Please 👀', 'Isaac visited the website and wants to play Peak with you!')">Peak Please</button>
+  <button onclick="sendNotification('Gimme your notes 📝', 'Isaac visited the website and wants you to share your favorite notes!')">Gimme your notes</button>
+</div>
+
+
+  <div class="gallery">
+    <div class="entry">
+      <h3>Entry 1 – August 20</h3>
+      <video controls>
+        <source src="video1.mp4" type="video/mp4">
+      </video>
+      <p>A little note for this day 🌸</p>
+    </div>
+
+    <div class="entry">
+      <h3>Entry 2 – August 25</h3>
+      <video controls>
+        <source src="video2.mp4" type="video/mp4">
+      </video>
+      <p>This one’s extra special 💕</p>
+    </div>
+  </div>
+
+  <script>
+    function sendNotification(title, message) {
+      fetch('/notify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, message })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Notification sent!');
+        } else {
+          alert('Failed to send notification: ' + (data.error || 'Unknown error'));
+        }
+      })
+      .catch(err => {
+        alert('Error: ' + err.message);
+      });
+    }
+
+    if (sessionStorage.getItem("authenticated") !== "true") {
+      alert("You need the password first 💔");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

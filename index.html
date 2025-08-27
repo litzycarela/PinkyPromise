@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secret Site Login 💌</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login">
+  <div class="login-card">
+    <h1>Welcome 💖</h1>
+    <p>Enter the password to see my video diaries:</p>
+    
+    <input type="password" id="passwordInput" placeholder="Password">
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      const realPassword = "pinkypromise"; // change this 🔑
+      if (input === realPassword) {
+        sessionStorage.setItem("authenticated", "true");
+        window.location.href = "gallery.html"; 
+      } else {
+        alert("Nope, try again 💔");
+      }
+    }
+  </script>
+</body>
+</html>
