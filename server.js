@@ -29,9 +29,17 @@ app.post('/notify', async (req, res) => {
     });
     res.json({ success: true, data: response.data });
   } catch (error) {
-    // Try to return more info if available
-    const apiError = error.response && error.response.data ? error.response.data : error.message;
-    res.status(500).json({ error: apiError });
+    // Always return JSON, never HTML
+    if (error.response && error.response.data) {
+      // If the response is not JSON, send as string
+      let errData = error.response.data;
+      if (typeof errData !== 'object') {
+        errData = { error: String(errData) };
+      }
+      res.status(500).json(errData);
+    } else {
+      res.status(500).json({ error: error.message });
+    }
   }
 });
 
